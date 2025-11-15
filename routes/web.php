@@ -33,3 +33,6 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Route::get('/store/{store}/orders', \App\Livewire\Order\Index\Page::class)
+    ->middleware('can:view,store');
