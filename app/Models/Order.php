@@ -27,6 +27,25 @@ class Order extends Model
         return $this->belongsTo(Store::class);
     }
 
+    public function getAvatarAttribute(): string
+    {
+        return 'https://i.pravatar.cc/300?img='.((string) crc32($this->email))[0];
+    }
+
+    public function dateForHumans(): string
+    {
+        return $this->ordered_at->format(
+            $this->ordered_at->year === now()->year
+                ? 'M d, g:i A'
+                : 'M d, Y, g:i A'
+        );
+    }
+
+    public function amountForHumans()
+    {
+        return Number::currency($this->amount);
+    }
+
     public function archive(): void
     {
         $this->delete();

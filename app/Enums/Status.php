@@ -11,12 +11,7 @@ enum Status: string
 
     public function label(): string
     {
-        return match ($this) {
-            self::Paid => 'Paid',
-            self::Pending => 'Pending',
-            self::Failed => 'Failed',
-            self::Refunded => 'Refunded',
-        };
+        return (string) str($this->name)->replace('_', ' ');
     }
 
     public function icon(): string
