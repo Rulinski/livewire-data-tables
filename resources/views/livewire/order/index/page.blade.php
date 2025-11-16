@@ -71,6 +71,11 @@
              class="absolute inset-0 bg-white opacity-50">
             {{--  --}}
         </div>
+
+        <div wire:loading.flex wire:target="sortBy, search, nextPage, previousPage, archive, archiveSelected"
+             class="flex justify-center items-center absolute inset-0">
+            <x-icon.spinner size="10" class="text-gray-500" />
+        </div>
     </div>
 
     {{-- Pagination... --}}
