@@ -2,10 +2,11 @@
     <div class="flex flex-col sm:grid grid-cols-8 gap-2">
         <div class="relative text-sm text-gray-800 col-span-3">
             <div class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500">
-                <x-icon.magnifying-glass />
+                <x-icon.magnifying-glass/>
             </div>
 
-            <input wire:model.live="search" type="text" placeholder="Search email or order #" class="block w-full rounded-lg border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input wire:model.live="search" type="text" placeholder="Search email or order #"
+                   class="block w-full rounded-lg border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
     </div>
 
@@ -15,11 +16,15 @@
             <thead>
             <tr>
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div class="whitespace-nowrap">Order #</div>
+                    <x-order.index.sortable column="number" :$sortCol :$sortAsc>
+                        <div class="whitespace-nowrap">Order #</div>
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Status</div>
+                    <x-order.index.sortable column="status" :$sortCol :$sortAsc>
+                        <div>Status</div>
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
@@ -27,11 +32,15 @@
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Date</div>
+                    <x-order.index.sortable column="date" :$sortCol :$sortAsc>
+                        <div>Date</div>
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Amount</div>
+                    <x-order.index.sortable column="amount" :$sortCol :$sortAsc class="flex-row-reverse">
+                        <div>Amount</div>
+                    </x-order.index.sortable>
                 </th>
 
             </tr>
@@ -84,7 +93,7 @@
 
         <div wire:loading.flex wire:target="sortBy, search, nextPage, previousPage, archive, archiveSelected"
              class="flex justify-center items-center absolute inset-0">
-            <x-icon.spinner size="10" class="text-gray-500" />
+            <x-icon.spinner size="10" class="text-gray-500"/>
         </div>
     </div>
 
