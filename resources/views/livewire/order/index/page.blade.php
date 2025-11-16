@@ -72,4 +72,13 @@
             {{--  --}}
         </div>
     </div>
+
+    {{-- Pagination... --}}
+    <div class="mt-4 pt-4 flex justify-between items-center">
+        <div class="text-gray-700 text-sm">
+            Results: {{ \Illuminate\Support\Number::format($orders->total()) }}
+        </div>
+
+        {{ $orders->links('stubs.pagination') }}
+    </div>
 </div>
