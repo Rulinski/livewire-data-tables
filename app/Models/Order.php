@@ -41,9 +41,16 @@ class Order extends Model
         );
     }
 
-    public function amountForHumans()
+    public function amountForHumans(): false|string
     {
         return Number::currency($this->amount);
+    }
+
+    public function refund(): void
+    {
+        $this->status = Status::Refunded;
+
+        $this->save();
     }
 
     public function archive(): void

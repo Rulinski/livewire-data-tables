@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Order\Index;
 
+use App\Models\Order;
 use App\Models\Store;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -60,6 +62,23 @@ class Page extends Component
             : $query
                 ->where('email', 'like', '%'.$this->search.'%')
                 ->orWhere('number', 'like', '%'.$this->search.'%');
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function refund(Order $order): void
+    {
+        $this->authorize('update', $order);
+
+        $order->refund();
+    }
+
+    public function archive(Order $order): void
+    {
+        $this->authorize('update', $order);
+
+        $order->archive();
     }
 
     public function render(): View
