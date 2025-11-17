@@ -25,6 +25,8 @@ class Page extends Component
     #[Url]
     public bool $sortAsc = false;
 
+    public $selectedOrderIds = [];
+
     public function sortBy($column): void
     {
         if ($this->sortCol === $column) {
@@ -73,6 +75,15 @@ class Page extends Component
         $this->authorize('update', $order);
 
         $order->refund();
+    }
+
+    public function archiveSelected(): void
+    {
+        $orders = $this->store->orders()->whereIn('id', $this->selectedOrderIds)->get();
+
+        foreach ($orders as $order) {
+            $this->archive($order);
+        }
     }
 
     public function archive(Order $order): void
