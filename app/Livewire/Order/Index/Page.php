@@ -8,68 +8,19 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\View\View;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
-use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Page extends Component
 {
-    use WithPagination;
+    use WithPagination, Sortable, Searchable;
 
     public Store $store;
-
-    public string $search = '';
-
-    #[Url]
-    public string $sortCol = 'number';
-
-    #[Url]
-    public bool $sortAsc = false;
 
     public $selectedOrderIds = [];
 
     public $orderIdsOnPage = [];
-
-    public function sortBy($column): void
-    {
-        if ($this->sortCol === $column) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortCol = $column;
-            $this->sortAsc = false;
-        }
-    }
-
-    protected function applySorting($query)
-    {
-        if ($this->sortCol) {
-            $column = match ($this->sortCol) {
-                'number' => 'number',
-                'status' => 'status',
-                'date' => 'ordered_at',
-                'amount' => 'amount',
-            };
-
-            $query->orderBy($column, $this->sortAsc ? 'asc' : 'desc');
-        }
-
-        return $query;
-    }
-
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    protected function applySearch($query)
-    {
-        return $this->search === ''
-            ? $query
-            : $query
-                ->where('email', 'like', '%'.$this->search.'%')
-                ->orWhere('number', 'like', '%'.$this->search.'%');
-    }
 
     /**
      * @throws AuthorizationException
@@ -118,7 +69,7 @@ class Page extends Component
         ]);
     }
 
-    public function placeholder()
+    public function placeholder(): View
     {
         return view('livewire.order.index.table-placeholder');
     }
