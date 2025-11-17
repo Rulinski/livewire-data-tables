@@ -120,7 +120,7 @@
                 Results: {{ \Illuminate\Support\Number::format($orders->total()) }}
             </div>
 
-            {{ $orders->links('stubs.pagination') }}
+            {{ $orders->links('livewire.order.index.pagination') }}
         </div>
     </div>
 </div>
