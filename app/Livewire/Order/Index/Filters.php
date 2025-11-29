@@ -3,13 +3,17 @@
 namespace App\Livewire\Order\Index;
 
 use Livewire\Form;
+use Livewire\Attributes\Url;
 use App\Models\Store;
 
 class Filters extends Form
 {
     public Store $store;
-
+    #[Url(as: 'products')]
     public $selectedProductIds = [];
+
+    #[Url]
+    public Range $range = Range::All_Time;
 
     public function init($store): void
     {
@@ -32,11 +36,23 @@ class Filters extends Form
 
     public function apply($query)
     {
-        return $this->applyProducts($query);
+        $query = $this->applyProducts($query);
+        $query = $this->applyRange($query);
+
+        return $query;
     }
 
     public function applyProducts($query)
     {
         return $query->whereIn('product_id', $this->selectedProductIds);
+    }
+
+    public function applyRange($query)
+    {
+        if ($this->range === Range::All_Time) {
+            return $query;
+        }
+
+        return $query->whereBetween('ordered_at', $this->range->dates());
     }
 }

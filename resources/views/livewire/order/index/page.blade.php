@@ -8,6 +8,8 @@
 
         <div class="flex gap-2">
             <x-order.index.filter-products :$filters />
+
+            <x-order.index.filter-range :$filters />
         </div>
     </div>
 
