@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Order\Index;
 
-use Illuminate\View\View;
-use Livewire\Component;
-use Livewire\Attributes\Reactive;
-use Illuminate\Support\Facades\DB;
 use App\Models\Store;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use Livewire\Attributes\Reactive;
+use Livewire\Component;
 
 class Chart extends Component
 {
@@ -22,7 +22,7 @@ class Chart extends Component
         $increment = match ($this->filters->range) {
             Range::Today => DB::raw("strftime('%H', ordered_at) as increment"),
             Range::All_Time, Range::Year => DB::raw("strftime('%Y', ordered_at) || '-' || strftime('%m', ordered_at) as increment"),
-            default => DB::raw("DATE(ordered_at) as increment"),
+            default => DB::raw('DATE(ordered_at) as increment'),
         };
 
         $results = $this->store->orders()

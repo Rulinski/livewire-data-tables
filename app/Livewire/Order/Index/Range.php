@@ -22,7 +22,7 @@ enum Range: string
             self::Last_7 => 'Last 7 Days',
             self::Today => 'Today',
             self::Custom => ($start !== null && $end !== null)
-                ? str($start)->replace('-', '/') . ' - ' . str($end)->replace('-', '/')
+                ? str($start)->replace('-', '/').' - '.str($end)->replace('-', '/')
                 : 'Custom Range',
         };
     }

@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 
 class Table extends Component
 {
-    use WithPagination, Sortable, Searchable;
+    use Searchable, Sortable, WithPagination;
 
     public Store $store;
 

@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Order\Index;
 
-use Livewire\Component;
 use App\Models\Store;
 use Illuminate\View\View;
+use Livewire\Component;
 
 class Page extends Component
 {
