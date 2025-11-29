@@ -34,4 +34,3 @@ enum Status: string
         };
     }
 }
-

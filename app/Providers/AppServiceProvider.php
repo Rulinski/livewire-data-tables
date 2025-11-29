@@ -29,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
             return response()->streamDownload(function () use ($query) {
                 $results = $query->get();
 
-                if ($results->count() < 1) return;
+                if ($results->count() < 1) {
+                    return;
+                }
 
                 $titles = implode(',', array_keys((array) $results->first()->getAttributes()));
 
