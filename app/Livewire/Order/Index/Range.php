@@ -11,6 +11,7 @@ enum Range: string
     case Last_30 = 'last30';
     case Last_7 = 'last7';
     case Today = 'today';
+    case Custom = 'custom';
 
     public function label($start = null, $end = null): string
     {
@@ -20,6 +21,9 @@ enum Range: string
             self::Last_30 => 'Last 30 Days',
             self::Last_7 => 'Last 7 Days',
             self::Today => 'Today',
+            self::Custom => ($start !== null && $end !== null)
+                ? str($start)->replace('-', '/') . ' - ' . str($end)->replace('-', '/')
+                : 'Custom Range',
         };
     }
 
