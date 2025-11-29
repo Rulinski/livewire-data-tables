@@ -5,9 +5,13 @@
 
             <p class="hidden sm:block text-sm text-gray-500">{{ $store->name }}</p>
         </div>
+
+        <div class="flex gap-2">
+            <x-order.index.filter-products :$filters />
+        </div>
     </div>
 
-    <livewire:order.index.chart :$store :$filters lazy/>
+    <livewire:order.index.chart :$store :$filters lazy />
 
     <livewire:order.index.table :$store :$filters lazy />
 </div>

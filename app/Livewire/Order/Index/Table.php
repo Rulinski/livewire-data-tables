@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\View\View;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,6 +16,9 @@ class Table extends Component
     use WithPagination, Sortable, Searchable;
 
     public Store $store;
+
+    #[Reactive]
+    public Filters $filters;
 
     public $selectedOrderIds = [];
 
@@ -57,7 +61,7 @@ class Table extends Component
         $query = $this->store->orders();
         $query = $this->applySearch($query);
         $query = $this->applySorting($query);
-
+        $query = $this->filters->apply($query);
         $orders = $query->paginate(10);
 
         $this->orderIdsOnPage = $orders->map(fn ($order) => (string) $order->id)->toArray();
