@@ -36,3 +36,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/store/{store}/orders', \App\Livewire\Order\Index\Page::class)
     ->middleware('can:view,store');
+
+Route::get('/todos', \App\Livewire\TodoList::class);
