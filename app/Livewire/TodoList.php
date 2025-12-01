@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -12,19 +14,25 @@ class TodoList extends Component
 
     public function add(): void
     {
-        auth()->user()->todos()->create([
+        $this->query()->create([
             'name' => $this->pull('draft'),
+            'position' => $this->query()->count(),
         ]);
     }
 
     #[Computed]
-    public function todos()
+    public function todos(): Collection
     {
-        return auth()->user()->todos;
+        return $this->query()->orderBy('position')->get();
     }
 
     public function render(): View
     {
         return view('livewire.todo-list');
+    }
+
+    public function query(): HasMany
+    {
+        return auth()->user()->todos();
     }
 }

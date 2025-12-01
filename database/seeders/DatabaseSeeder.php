@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Vital User',
             'email' => 'vital@example.com',
             'password' => bcrypt('password')
@@ -36,5 +36,13 @@ class DatabaseSeeder extends Seeder
         Order::factory()->count(604)->create(['product_id' => '2']);
         Order::factory()->count(503)->create(['product_id' => '3']);
         Order::factory()->count(402)->create(['product_id' => '4']);
+
+        $user->todos()->createMany([
+            [ 'name' => 'Wash my bike'],
+            [ 'name' => 'Jump on the trampoline' ],
+            [ 'name' => 'Burn ants with glass' ],
+            [ 'name' => 'Put a card in my spokes' ],
+        ]);
+
     }
 }
